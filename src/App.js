@@ -3,12 +3,17 @@ import { createStore } from "redux";
 
 function App() {
   const [reduxState, setreduxState] = useState({ title: "react" });
-
+  const [Create, setCreate] = useState(false);
+  const [Title, setTitle] = useState("");
+  const [Desc, setDesc] = useState("");
   function appReducer(state = {}, action) {
     switch (action.type) {
       case "select":
         const newState = { ...state, ...action };
         return newState;
+      case "submit":
+        const newState2 = { ...state, ...action };
+        return newState2;
 
       default:
         return state;
@@ -18,6 +23,25 @@ function App() {
   function getName(event) {
     event.preventDefault();
     store.dispatch({ type: "select", title: event.target.innerHTML });
+  }
+
+  function getInput(event) {
+    event.preventDefault();
+    setCreate(!Create);
+    // store.dispatch({ type: "create" , title:});
+  }
+
+  function getTitle(event) {
+    setTitle(event.target.value);
+  }
+
+  function getDesc(event) {
+    setDesc(event.target.value);
+  }
+
+  function newArticle(event) {
+    event.preventDefault();
+    store.dispatch({ type: "submit", title: Title, desc: Desc });
   }
 
   const store = createStore(
@@ -46,13 +70,39 @@ function App() {
       </ul>
 
       <div className="btn_box">
-        <button>Create</button>
-        <button>Delete</button>
+        <button onClick={getInput}>Create</button>
+
+        {Create && (
+          <form
+            onSubmit={newArticle}
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              width: "200px",
+              height: "120px",
+              marginTop: "20px",
+              padding: "10px",
+              backgroundColor: "red",
+              justifyContent: "space-around",
+            }}
+          >
+            <h4 style={{ lineHeight: "0" }}>Make new article</h4>
+            <input placeholder="title" name="title" onChange={getTitle}></input>
+            <input placeholder="desc" name="desc" onChange={getDesc}></input>
+            <button onSubmit={newArticle}>Submit</button>
+          </form>
+        )}
+
+        {/* <button>Delete</button> */}
       </div>
 
       <div className="txt_box">
         <h2>{reduxState.title}</h2>
-        <p>This is about {reduxState.title}</p>
+        {reduxState.desc ? (
+          <p>{reduxState.desc}</p>
+        ) : (
+          <p>This is about {reduxState.title}</p>
+        )}
       </div>
     </div>
   );
