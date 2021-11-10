@@ -27,8 +27,10 @@ function App1() {
   }
 
   useEffect(() => {
-    setReduxState(store.getState());
+    let currentState = store.getState();
+    setReduxState(currentState.content);
   }, []);
+  console.log("currentState", ReduxState);
 
   const store = createStore(
     appReducer,
@@ -79,6 +81,7 @@ function App1() {
     // console.log(NewOb, "Newob");
     let NewState = [...stateArray, NewOb];
     console.log(NewState, "NewState");
+    setReduxState(NewState);
     store.dispatch({
       type: "create",
       content: NewState,
@@ -90,7 +93,7 @@ function App1() {
       <h2>Redux test</h2>
       <div>
         {ReduxState &&
-          ReduxState.content.map((content, index) => {
+          ReduxState.map((content, index) => {
             return (
               <button key={index} id={index} onClick={getName}>
                 {content.title}
