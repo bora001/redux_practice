@@ -17,11 +17,12 @@ function App() {
     setreduxState(store.getState());
   }, []);
 
-  console.log(store.getState());
-
-  console.log(reduxState);
   function appReducer(state = [], action) {
     switch (action.type) {
+      case "select":
+        console.log(action);
+        return state;
+        break;
       case "submit":
         state = [
           ...state,
@@ -46,8 +47,9 @@ function App() {
 
   function getName(event) {
     event.preventDefault();
-    console.log(event.target.attributes.id.value, "getName");
+    // console.log(event.target.attributes.id.value, "getName");
     setId(event.target.attributes.id.value, "getName");
+    store.dispatch({ type: "select", id: Id });
   }
 
   function getInput(event) {
@@ -85,22 +87,42 @@ function App() {
         <h4>This is Redux practice</h4>
         {reduxState &&
           reduxState.map((content, index) => {
-            return (
-              <p
-                key={index}
-                style={{
-                  padding: "10px",
-                  backgroundColor: "#ff5",
-                  width: "100px",
-                  textAlign: "center",
-                  boxShadow: "3px 3px 3px gold",
-                }}
-              >
+            return Id === index ? (
+              <p key={index}>
                 <a
                   href="/"
                   onClick={getName}
                   id={index}
-                  style={{ textDecoration: "none" }}
+                  style={{
+                    padding: "10px",
+                    width: "300px",
+                    display: "block",
+                    backgroundColor: "#ff0",
+                    boxShadow: "3px 3px 3px gold",
+                    textAlign: "center",
+                    textDecoration: "none",
+                    width: "100%",
+                  }}
+                >
+                  {content.title}
+                </a>
+              </p>
+            ) : (
+              <p key={index}>
+                <a
+                  href="/"
+                  onClick={getName}
+                  id={index}
+                  style={{
+                    padding: "10px",
+                    width: "300px",
+                    display: "block",
+                    backgroundColor: "#ff8",
+                    boxShadow: "3px 3px 3px gold",
+                    textAlign: "center",
+                    textDecoration: "none",
+                    width: "100%",
+                  }}
                 >
                   {content.title}
                 </a>
@@ -131,6 +153,8 @@ function App() {
       >
         Create New Article ✅
       </button>
+
+      {/* delete */}
 
       {Create && (
         <form
