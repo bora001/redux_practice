@@ -27,10 +27,15 @@ function App1() {
   }
 
   useEffect(() => {
-    let currentState = store.getState();
-    setReduxState(currentState.content);
+    let state = store.getState();
+    setReduxState(state.content);
   }, []);
-  console.log("currentState", ReduxState);
+
+  function MakeNewDesc() {
+    let id = currentId;
+    let state = Object.assign({}, ReduxState[id]);
+    return <p>{state.desc}</p>;
+  }
 
   const store = createStore(
     appReducer,
@@ -40,20 +45,13 @@ function App1() {
   function getName(event) {
     event.preventDefault();
     let Id = event.target.attributes.id.value;
-    // console.log();
     setcurrentId(Id);
     store.dispatch({ type: "select", id: Id });
-    // console.log(ReduxState, "click getanme");
-    // console.log(store.getState(), "click getname and getState");
   }
-
-  // let contentRender;
+  console.log(currentId, "currentId ");
 
   store.subscribe(() => {
     let state = store.getState();
-    console.log(state, "store subscribe state");
-    // setReduxState(store.getState());
-    // console.log(ReduxState, "stateRedux");
   });
 
   function getNewArticle(event) {
@@ -75,10 +73,6 @@ function App1() {
     let NewId = currentState.content.length;
     let NewOb = { id: NewId, title: NewTitle, desc: NewDesc };
     let stateArray = currentState.content;
-    // console.log(store.getState(), "submit get state");
-    // console.log(currentState, "currentState");
-    // console.log(currentState.content, "currentState array");
-    // console.log(NewOb, "Newob");
     let NewState = [...stateArray, NewOb];
     console.log(NewState, "NewState");
     setReduxState(NewState);
@@ -86,6 +80,7 @@ function App1() {
       type: "create",
       content: NewState,
     });
+    setgetInput(false);
   }
 
   return (
@@ -111,6 +106,15 @@ function App1() {
           <button onSubmit={onSubmit}>Submit</button>
         </form>
       )}
+
+      <p>{MakeNewDesc()}</p>
+      {/* {ReduxState &&
+        ReduxState.map((content, index) => {
+          if (content.id === currentId) {
+            return <p key={index}>{content.desc}</p>;
+            console.log(content, "willrender");
+          }
+        })} */}
     </div>
   );
 }
