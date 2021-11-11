@@ -47,6 +47,7 @@ function App1() {
     let Id = event.target.attributes.id.value;
     setcurrentId(Id);
     store.dispatch({ type: "select", id: Id });
+    console.log("ya", currentId, Id);
   }
   console.log(currentId, "currentId ");
 
@@ -83,13 +84,34 @@ function App1() {
     setgetInput(false);
   }
 
+  function onDelete(event) {
+    event.preventDefault();
+  }
+
   return (
     <div>
       <h2>Redux test</h2>
       <div>
-        {ReduxState &&
+        {/* {ReduxState &&
           ReduxState.map((content, index) => {
             return (
+              <button key={index} id={index} onClick={getName}>
+                {content.title}
+              </button>
+            );
+          })} */}
+        {ReduxState &&
+          ReduxState.map((content, index) => {
+            return currentId == index ? (
+              <button
+                key={index}
+                id={index}
+                onClick={getName}
+                style={{ backgroundColor: "red" }}
+              >
+                {content.title}
+              </button>
+            ) : (
               <button key={index} id={index} onClick={getName}>
                 {content.title}
               </button>
@@ -99,6 +121,10 @@ function App1() {
       <button onClick={getNewArticle} style={{ backgroundColor: "gold" }}>
         Create
       </button>
+      <button onClick={onDelete} style={{ backgroundColor: "lightgreen" }}>
+        Delete
+      </button>
+
       {getInput && (
         <form onSubmit={onSubmit}>
           <input onChange={getTitle} placeholder="title"></input>
@@ -108,13 +134,6 @@ function App1() {
       )}
 
       <p>{MakeNewDesc()}</p>
-      {/* {ReduxState &&
-        ReduxState.map((content, index) => {
-          if (content.id === currentId) {
-            return <p key={index}>{content.desc}</p>;
-            console.log(content, "willrender");
-          }
-        })} */}
     </div>
   );
 }
