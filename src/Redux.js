@@ -43,3 +43,13 @@ function minus() {
 
 // store
 const store = createStore(reducer);
+
+const listener = () => {
+  const state = store.getState();
+  console.log("listener state", state);
+};
+
+store.subscribe(listener);
+
+store.dispatch(plus());
+store.dispatch(minus());
