@@ -5,11 +5,15 @@ import "./Redux";
 import { createStore } from "redux";
 import reducer from "./Redux";
 import { Provider } from "react-redux";
+
 // store
 const store = createStore(reducer);
 console.log(store.getState());
+
 ReactDOM.render(
-  <Provider store={store}>
+  //Every component in App can able to get info from Redux by Provider
+
+  <Provider store={stores}>
     <App />
   </Provider>,
   document.getElementById("root")

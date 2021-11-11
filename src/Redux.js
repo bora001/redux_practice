@@ -1,5 +1,3 @@
-import { createStore } from "redux";
-
 // setting initial State
 
 const initialState = {
@@ -40,9 +38,6 @@ export function minus() {
     type: MINUS,
   };
 }
-
-// store
-const store = createStore(reducer);
 
 const listener = () => {
   const state = store.getState();
