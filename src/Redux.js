@@ -39,12 +39,12 @@ export function minus() {
   };
 }
 
-const listener = () => {
-  const state = store.getState();
-  console.log("listener state", state);
-};
+// const listener = () => {
+//   const state = store.getState();
+//   console.log("listener state", state);
+// };
 
-store.subscribe(listener);
+// store.subscribe(listener);
 
-store.dispatch(plus());
-store.dispatch(minus());
+// store.dispatch(plus());
+// store.dispatch(minus());
