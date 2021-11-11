@@ -7,11 +7,9 @@ import { Provider } from "react-redux";
 
 // store
 const store = createStore(reducer);
-console.log(store.getState());
+// console.log(store.getState());
 
 ReactDOM.render(
-  //Every component in App can able to get info from Redux by Provider
-
   <Provider store={store}>
     <App />
   </Provider>,
