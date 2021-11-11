@@ -1,10 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import App1 from "./App1";
+import App from "./App";
+import "./Redux";
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App1 />
-  </React.StrictMode>,
-  document.getElementById("root")
-);
+ReactDOM.render(<App />, document.getElementById("root"));
