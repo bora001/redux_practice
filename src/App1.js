@@ -13,9 +13,12 @@ function App1() {
       case "select":
         return { ...state, action };
         break;
-      case "create":
-        console.log("create action", action);
+      case "delete":
         return action.content;
+
+      case "create":
+        return action.content;
+
       default:
         return {
           content: [
@@ -47,9 +50,7 @@ function App1() {
     let Id = event.target.attributes.id.value;
     setcurrentId(Id);
     store.dispatch({ type: "select", id: Id });
-    console.log("ya", currentId, Id);
   }
-  console.log(currentId, "currentId ");
 
   store.subscribe(() => {
     let state = store.getState();
@@ -75,7 +76,6 @@ function App1() {
     let NewOb = { id: NewId, title: NewTitle, desc: NewDesc };
     let stateArray = currentState.content;
     let NewState = [...stateArray, NewOb];
-    console.log(NewState, "NewState");
     setReduxState(NewState);
     store.dispatch({
       type: "create",
@@ -86,20 +86,26 @@ function App1() {
 
   function onDelete(event) {
     event.preventDefault();
+    let currentState = store.getState();
+    let newOb = [];
+
+    for (let i = 0; i < currentState.content.length; i++) {
+      if (currentId !== i) {
+        newOb.push(currentState.content[i]);
+      }
+    }
+    setReduxState(newOb);
+
+    store.dispatch({
+      type: "delete",
+      content: newOb,
+    });
   }
 
   return (
     <div>
       <h2>Redux test</h2>
       <div>
-        {/* {ReduxState &&
-          ReduxState.map((content, index) => {
-            return (
-              <button key={index} id={index} onClick={getName}>
-                {content.title}
-              </button>
-            );
-          })} */}
         {ReduxState &&
           ReduxState.map((content, index) => {
             return currentId == index ? (
