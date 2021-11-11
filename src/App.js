@@ -8,6 +8,10 @@ function App() {
     number: state.counter,
   }));
 
+  const dispatch = useDispatch();
+  const plusNumber = () => dispatch(plus());
+  const minusNumber = () => dispatch(minus());
+
   return (
     <div>
       <div
@@ -17,9 +21,9 @@ function App() {
           width: "130px",
         }}
       >
-        <button onClick={plus}>➕</button>
+        <button onClick={plusNumber}>➕</button>
         <p>{number}</p>
-        <button onClick={minus}>➖</button>
+        <button onClick={minusNumber}>➖</button>
       </div>
     </div>
   );
