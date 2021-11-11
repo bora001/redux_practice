@@ -7,7 +7,7 @@ const initialState = {
 };
 
 // reducer
-function reducer(state = initialState, action) {
+export default function reducer(state = initialState, action) {
   switch (action.type) {
     case PLUS:
       return {
@@ -30,12 +30,12 @@ const PLUS = "PLUS";
 const MINUS = "MINUS";
 
 // action
-function plus() {
+export function plus() {
   return {
     type: PLUS,
   };
 }
-function minus() {
+export function minus() {
   return {
     type: MINUS,
   };
