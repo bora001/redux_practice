@@ -1,5 +1,5 @@
 import React from "react";
-import { plus, minus } from "./Redux";
+import { plus, minus } from "./redux/CounterRedux";
 import { useSelector, useDispatch } from "react-redux";
 
 function CounterPage() {
