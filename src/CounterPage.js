@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 function CounterPage() {
   // get redux state by useSelector
   const { number } = useSelector((state) => ({
-    number: state.counter,
+    number: state.CounterReducer.counter,
   }));
 
   const dispatch = useDispatch();
