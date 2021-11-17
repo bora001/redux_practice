@@ -1,12 +1,27 @@
 import React from "react";
 
-function TodoList({ text }) {
-  console.log("todoList", text);
+function TodoList({ currentState, ActiveTodo }) {
   return (
     <div>
       <ul>
-        {text.map((content, index) => {
-          return <li key={index}>{content}</li>;
+        {currentState.map((content, index) => {
+          return (
+            <div key={index}>
+              {content.isFinish ? (
+                <li
+                  id={index}
+                  style={{ color: "red" }}
+                  onClick={() => ActiveTodo(index)}
+                >
+                  {content.text}
+                </li>
+              ) : (
+                <li id={index} onClick={() => ActiveTodo(index)}>
+                  {content.text}
+                </li>
+              )}
+            </div>
+          );
         })}
       </ul>
     </div>

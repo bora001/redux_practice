@@ -1,5 +1,5 @@
 import React, { useState, useRef } from "react";
-import { submit } from "./redux/TodoRedux";
+import { submit, active } from "./redux/TodoRedux";
 import TodoList from "./TodoList";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -8,11 +8,7 @@ function TodoPage() {
   const dispatch = useDispatch();
   const ref = useRef();
 
-  const { text } = useSelector((state) => ({
-    text: state.TodoReducer.text,
-  }));
-
-  console.log({ text }, "text");
+  const currentState = useSelector((state) => state.TodoReducer);
 
   const onChange = (e) => {
     setInputValue(e.target.value);
@@ -22,6 +18,11 @@ function TodoPage() {
     e.preventDefault();
     dispatch(submit(InputValue));
     ref.current.value = "";
+  };
+
+  const ActiveTodo = (id) => {
+    console.log("active", id);
+    dispatch(active(id));
   };
 
   return (
@@ -36,7 +37,7 @@ function TodoPage() {
         />
         <button onSubmit={onSubmit}>Submit</button>
       </form>
-      <TodoList text={text} />
+      <TodoList currentState={currentState} ActiveTodo={ActiveTodo} />
     </div>
   );
 }
